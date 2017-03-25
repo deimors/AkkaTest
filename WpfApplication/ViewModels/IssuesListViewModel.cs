@@ -19,8 +19,26 @@ namespace WpfApplication.ViewModels
 			{
 				if (value == _newIssueTitle) return;
 
+				CreateIssueError = null;
 				_newIssueTitle = value;
 				NotifyOfPropertyChanged(nameof(NewIssueTitle));
+			}
+		}
+
+		private string _createIssueError;
+		public string CreateIssueError
+		{
+			get
+			{
+				return _createIssueError;
+			}
+
+			set
+			{
+				if (value == _createIssueError) return;
+
+				_createIssueError = value;
+				NotifyOfPropertyChanged(nameof(CreateIssueError));
 			}
 		}
 
@@ -30,9 +48,6 @@ namespace WpfApplication.ViewModels
 			=> Issues.Add(issue);
 
 		public void CreateIssue()
-		{
-			CreateIssueEvent?.Invoke(NewIssueTitle);
-			NewIssueTitle = string.Empty;
-		}
+			=> CreateIssueEvent?.Invoke(NewIssueTitle);
 	}
 }

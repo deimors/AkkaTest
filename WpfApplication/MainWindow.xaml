@@ -5,13 +5,19 @@
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				xmlns:qc="http://QuickConverter.CodePlex.com/"
 				xmlns:local="clr-namespace:WpfApplication"
+				xmlns:controls="clr-namespace:WpfApplication.Controls"
 				mc:Ignorable="d"
 				Title="MainWindow" Height="350" Width="525">
-		<Grid>
+	<Window.Resources>
+		<SolidColorBrush Color="#FFABADB3" x:Key="NormalBorder"/>
+		<SolidColorBrush Color="Red" x:Key="InvalidBorder"/>
+	</Window.Resources>
+	
+	<Grid>
 			<DockPanel>
 				<DockPanel DockPanel.Dock="Top" LastChildFill="True">
 					<Button DockPanel.Dock="Right" Content="Create" Click="{qc:QuickEvent '$dataContext.CreateIssue()'}"/>
-					<TextBox Text="{Binding NewIssueTitle}" />
+					<controls:ValidatingTextBox Text="{Binding NewIssueTitle, UpdateSourceTrigger=PropertyChanged}" ValidationMessage="{Binding CreateIssueError}" />
 				</DockPanel>
 				<ListBox DockPanel.Dock="Bottom" ItemsSource="{Binding Issues}">
 					<ListBox.ItemTemplate>

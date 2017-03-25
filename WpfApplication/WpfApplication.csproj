@@ -73,6 +73,7 @@
     </ApplicationDefinition>
     <Compile Include="Bridges\IssueBridgeActor.cs" />
     <Compile Include="Bridges\IssuesListBridgeActor.cs" />
+    <Compile Include="Controls\ValidatingTextBox.cs" />
     <Compile Include="ViewModels\IIssue.cs" />
     <Compile Include="ViewModels\IIssuesList.cs" />
     <Compile Include="ViewModels\IssuesListViewModel.cs" />

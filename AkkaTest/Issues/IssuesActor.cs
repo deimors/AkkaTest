@@ -23,6 +23,12 @@ namespace AkkaTest.Issues
 
 		private void CreateIssue(IssuesMessages.Create msg)
 		{
+			if (string.IsNullOrEmpty(msg.Title))
+			{
+				Sender.Tell(new IssuesMessages.CreateFailed($"{nameof(msg.Title)} can't be null"), Self);
+				return;
+			}
+
 			var newIssueId = Guid.NewGuid();
 			var actorRef = Context.ActorOf(IssueActor.WithIssueId(newIssueId), newIssueId.ToString());
 

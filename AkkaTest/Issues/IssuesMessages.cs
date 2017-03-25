@@ -43,5 +43,15 @@ namespace AkkaTest.Issues
 				IssueActor = issue;
 			}
 		}
+
+		public class CreateFailed
+		{
+			public readonly string Reason;
+
+			public CreateFailed(string reason)
+			{
+				Reason = reason;
+			}
+		}
 	}
 }

@@ -1,5 +1,5 @@
 ﻿using Akka.Actor;
-using AkkaTest.Actors;
+using AkkaTest.Issues;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace ConsoleApplication1
 
 			var issues = system.ActorOf<IssuesActor>("issues");
 
-			issues.Tell(new CreateIssueMessage("title"));
+			issues.Tell(new IssuesMessages.Create("title"));
 
 			Console.ReadLine();
 		}

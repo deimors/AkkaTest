@@ -1,5 +1,5 @@
 ﻿using Akka.Actor;
-using AkkaTest.Actors;
+using AkkaTest.Issues;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -23,9 +23,9 @@ namespace WpfApplication
 
 			var issues = system.ActorOf<IssuesActor>("issues");
 
-			issues.Tell(new CreateIssueMessage("title 1"));
-			issues.Tell(new CreateIssueMessage("title 2"));
-			issues.Tell(new CreateIssueMessage("title 3"));
+			issues.Tell(new IssuesMessages.Create("title 1"));
+			issues.Tell(new IssuesMessages.Create("title 2"));
+			issues.Tell(new IssuesMessages.Create("title 3"));
 
 			var issuesViewModel = new IssuesListViewModel();
 			var issuesBridgeActor = system.ActorOf(IssuesListBridgeActor.Create(issuesViewModel, issues).WithDispatcher("akka.actor.synchronized-dispatcher"));

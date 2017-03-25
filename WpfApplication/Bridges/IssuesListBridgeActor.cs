@@ -1,5 +1,5 @@
 ﻿using Akka.Actor;
-using AkkaTest.Actors;
+using AkkaTest.Issues;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,10 +19,10 @@ namespace WpfApplication.Bridges
 			_issuesList = issuesList;
 			_issuesActor = issuesActor;
 
-			Receive<IssueCreatedEvent>(OnIssueCreated, null);
-			_issuesActor.Tell(new SubscribeToIssuesMessage(true), Self);
+			Receive<IssuesMessages.Created>(OnIssueCreated, null);
+			_issuesActor.Tell(new IssuesMessages.Subscribe(true), Self);
 
-			_issuesList.CreateIssueEvent += newTitle => _issuesActor.Tell(new CreateIssueMessage(newTitle));
+			_issuesList.CreateIssueEvent += newTitle => _issuesActor.Tell(new IssuesMessages.Create(newTitle));
 		}
 
 		public static Props Create(IIssuesList issuesList, IActorRef issuesActor)
@@ -30,7 +30,7 @@ namespace WpfApplication.Bridges
 			return Props.Create(() => new IssuesListBridgeActor(issuesList, issuesActor));
 		}
 
-		private void OnIssueCreated(IssueCreatedEvent e)
+		private void OnIssueCreated(IssuesMessages.Created e)
 		{
 			var issueViewModel = new IssueViewModel();
 			var issueBridgeActor = Context.ActorOf(IssueBridgeActor.CreateActor(issueViewModel, e.IssueActor).WithDispatcher("akka.actor.synchronized-dispatcher"));

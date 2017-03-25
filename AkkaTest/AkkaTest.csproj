@@ -64,8 +64,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actors\IssueActor.cs" />
-    <Compile Include="Actors\IssuesActor.cs" />
+    <Compile Include="Issues\IssueActor.cs" />
+    <Compile Include="Issues\IssueMessages.cs" />
+    <Compile Include="Issues\IssuesActor.cs" />
+    <Compile Include="Issues\IssuesMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

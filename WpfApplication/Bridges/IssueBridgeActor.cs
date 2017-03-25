@@ -1,5 +1,5 @@
 ﻿using Akka.Actor;
-using AkkaTest.Actors;
+using AkkaTest.Issues;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +19,8 @@ namespace WpfApplication.Bridges
 			_issue = issue;
 			_issueActor = issueActor;
 
-			Receive<TitleSetEvent>(msg => OnTitleSet(msg));
-			_issueActor.Tell(new SubscribeToTitleMessage(true), Self);
+			Receive<IssueMessages.TitleChanged>(msg => OnTitleSet(msg));
+			_issueActor.Tell(new IssueMessages.SubscribeTitle(true), Self);
 		}
 
 		public static Props CreateActor(IIssue issue, IActorRef issueActor)
@@ -28,7 +28,7 @@ namespace WpfApplication.Bridges
 			return Props.Create(() => new IssueBridgeActor(issue, issueActor));
 		}
 
-		private void OnTitleSet(TitleSetEvent e)
+		private void OnTitleSet(IssueMessages.TitleChanged e)
 		{
 			_issue.Title = e.Title;
 		}

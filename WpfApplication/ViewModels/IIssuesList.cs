@@ -6,7 +6,7 @@ namespace WpfApplication.ViewModels
 	{
 		void AddIssue(IssueViewModel issue);
 		string NewIssueTitle { get; set; }
-		string CreateIssueError { get; set; }
+		string CreateIssueError { set; }
 		event Action<string> CreateIssueEvent;
 	}
 }

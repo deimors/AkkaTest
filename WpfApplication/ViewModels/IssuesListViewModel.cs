@@ -24,21 +24,12 @@ namespace WpfApplication.ViewModels
 				NotifyOfPropertyChanged(nameof(NewIssueTitle));
 			}
 		}
-
-		private string _createIssueError;
+		
 		public string CreateIssueError
 		{
-			get
-			{
-				return _createIssueError;
-			}
-
 			set
 			{
-				if (value == _createIssueError) return;
-
-				_createIssueError = value;
-				NotifyOfPropertyChanged(nameof(CreateIssueError));
+				SetPropertyValidationError(nameof(NewIssueTitle), value);
 			}
 		}
 

@@ -25,7 +25,7 @@ namespace AkkaTest.Issues
 		{
 			if (string.IsNullOrEmpty(msg.Title))
 			{
-				Sender.Tell(new IssuesMessages.CreateFailed($"{nameof(msg.Title)} can't be null"), Self);
+				Sender.Tell(new IssuesMessages.CreateFailed($"{nameof(msg.Title)} can't be empty"), Self);
 				return;
 			}
 

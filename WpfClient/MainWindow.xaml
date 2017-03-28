@@ -15,7 +15,7 @@
 	<Grid>
 			<DockPanel>
 				<DockPanel DockPanel.Dock="Top" LastChildFill="True">
-					<Button DockPanel.Dock="Right" Content="Create" Click="{qc:QuickEvent '$dataContext.CreateIssue()'}" Margin="0, 5, 5, 5"/>
+					<Button DockPanel.Dock="Right" Content="Create" IsDefault="True" Click="{qc:QuickEvent '$dataContext.CreateIssue()'}" Margin="0, 5, 5, 5"/>
 					<TextBox Text="{Binding NewIssueTitle, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="5">
 						<Validation.ErrorTemplate>
 							<ControlTemplate>

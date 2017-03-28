@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:qc="http://QuickConverter.CodePlex.com/"
              xmlns:local="clr-namespace:WpfApplication"
-             Startup="ApplicationStartup">
+             Startup="ApplicationStartup"
+			 Exit="ApplicationExit">
 	<Application.Resources>
 
 	</Application.Resources>

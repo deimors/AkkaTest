@@ -20,31 +20,59 @@ namespace WpfApplication.Bridges
 				NewTitle = newTitle;
 			}
 		}
+
+		public class Initialize
+		{
+			public readonly IActorRef IssuesActor;
+
+			public Initialize(IActorRef issuesActor)
+			{
+				IssuesActor = issuesActor;
+			}
+		}
 	}
 
 	public class IssuesListBridgeActor : ReceiveActor
 	{
 		private readonly IIssuesList _issuesList;
-		private readonly IActorRef _issuesActor;
+		private IActorRef _issuesActor;
 
-		public IssuesListBridgeActor(IIssuesList issuesList, IActorRef issuesActor)
+		public IssuesListBridgeActor(IIssuesList issuesList)
 		{
 			_issuesList = issuesList;
-			_issuesActor = issuesActor;
 
+			Receive<IssuesListBridgeMessages.Initialize>(OnInitialize, null);
+
+			Become(Uninitialized);
+		}
+
+		public static Props Create(IIssuesList issuesList)
+		{
+			return Props.Create(() => new IssuesListBridgeActor(issuesList));
+		}
+
+		private void Uninitialized()
+		{
+			Receive<IssuesListBridgeMessages.Initialize>(OnInitialize, null);
+		}
+
+		private void Initialized()
+		{
 			Receive<IssuesListBridgeMessages.Create>(OnCreateIssue, null);
 			Receive<IssuesMessages.Created>(OnIssueCreated, null);
 			Receive<IssuesMessages.CreateFailed>(OnIssueCreateFailed, null);
+		}
 
+		private void OnInitialize(IssuesListBridgeMessages.Initialize msg)
+		{
+			_issuesActor = msg.IssuesActor;
+				
 			_issuesActor.Tell(new IssuesMessages.Subscribe(true), Self);
 
 			var self = Self;
-			_issuesList.CreateIssueEvent += newTitle => self.Tell(new IssuesListBridgeMessages.Create(newTitle)); 
-		}
+			_issuesList.CreateIssueEvent += newTitle => self.Tell(new IssuesListBridgeMessages.Create(newTitle));
 
-		public static Props Create(IIssuesList issuesList, IActorRef issuesActor)
-		{
-			return Props.Create(() => new IssuesListBridgeActor(issuesList, issuesActor));
+			Become(Initialized);
 		}
 
 		private void OnCreateIssue(IssuesListBridgeMessages.Create msg)

@@ -91,9 +91,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AkkaTest\AkkaTest.csproj">
+    <ProjectReference Include="..\AkkaTest\Domain.csproj">
       <Project>{b9671b61-ccef-4ed5-a106-d11a8c9b3bd9}</Project>
-      <Name>AkkaTest</Name>
+      <Name>Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

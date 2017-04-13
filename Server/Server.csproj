@@ -91,7 +91,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AkkaTest\Domain.csproj">
+    <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{b9671b61-ccef-4ed5-a106-d11a8c9b3bd9}</Project>
       <Name>Domain</Name>
     </ProjectReference>

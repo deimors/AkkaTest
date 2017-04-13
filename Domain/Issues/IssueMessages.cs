@@ -38,5 +38,19 @@ namespace AkkaTest.Issues
 			}
 		}
 
+		public class Delete
+		{
+
+		}
+
+		public class SubscribeDeleted
+		{
+
+		}
+
+		public class Deleted
+		{
+
+		}
 	}
 }

@@ -5,7 +5,7 @@ namespace WpfApplication.ViewModels
 {
 	public class IssuesListViewModel : ViewModel, IIssuesList
 	{
-		public ObservableCollection<IssueViewModel> Issues { get; } = new ObservableCollection<IssueViewModel>();
+		public ObservableCollection<IIssue> Issues { get; } = new ObservableCollection<IIssue>();
 
 		private string _newIssueTitle;
 		public string NewIssueTitle
@@ -35,7 +35,7 @@ namespace WpfApplication.ViewModels
 
 		public event Action<string> CreateIssueEvent;
 
-		public void AddIssue(IssueViewModel issue)
+		public void AddIssue(IIssue issue)
 			=> Issues.Add(issue);
 
 		public void CreateIssue()

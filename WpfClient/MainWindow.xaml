@@ -5,40 +5,31 @@
 				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				xmlns:qc="http://QuickConverter.CodePlex.com/"
 				xmlns:local="clr-namespace:WpfApplication"
+				xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
 				mc:Ignorable="d"
 				Title="MainWindow" Height="350" Width="525">
 	<Window.Resources>
 		<SolidColorBrush Color="#FFABADB3" x:Key="NormalBorder"/>
 		<SolidColorBrush Color="Red" x:Key="InvalidBorder"/>
 	</Window.Resources>
-	
+
 	<Grid>
-			<DockPanel>
-				<DockPanel DockPanel.Dock="Top" LastChildFill="True">
-					<Button DockPanel.Dock="Right" Content="Create" IsDefault="True" Click="{qc:QuickEvent '$dataContext.CreateIssue()'}" Margin="0, 5, 5, 5"/>
-					<TextBox Text="{Binding NewIssueTitle, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="5">
-						<Validation.ErrorTemplate>
-							<ControlTemplate>
-								<StackPanel>
-									<Border BorderBrush="Red" BorderThickness="1">
-										<AdornedElementPlaceholder x:Name="textBox"/>
-									</Border>
-									<DockPanel LastChildFill="False">
-										<TextBlock DockPanel.Dock="Right" Text="{Binding [0].ErrorContent}" Foreground="White" Background="Red" Padding="3"/>
-									</DockPanel>
-								</StackPanel>
-							</ControlTemplate>
-						</Validation.ErrorTemplate>
-					</TextBox>
-				</DockPanel>
-				
-				<ListBox DockPanel.Dock="Bottom" ItemsSource="{Binding Issues}">
-					<ListBox.ItemTemplate>
-						<DataTemplate>
-							<TextBlock Text="{Binding Title}" />
-						</DataTemplate>
-					</ListBox.ItemTemplate>
-				</ListBox>
+		<DockPanel>
+			<DockPanel DockPanel.Dock="Top" LastChildFill="True">
+				<Button DockPanel.Dock="Right" Content="Create" IsDefault="True" Click="{qc:QuickEvent '$dataContext.CreateIssue()'}" Margin="0, 5, 5, 5"/>
+				<TextBox Text="{Binding NewIssueTitle, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Margin="5" />
 			</DockPanel>
-		</Grid>
+
+			<ListBox DockPanel.Dock="Bottom" ItemsSource="{Binding Issues}" HorizontalContentAlignment="Stretch">
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<DockPanel LastChildFill="True">
+							<Button DockPanel.Dock="Right" Style="{StaticResource DeleteButton}" />
+							<TextBlock Text="{Binding Title}" />
+						</DockPanel>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</DockPanel>
+	</Grid>
 </Window>

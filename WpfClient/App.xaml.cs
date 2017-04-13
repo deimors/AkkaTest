@@ -21,13 +21,6 @@ namespace WpfApplication
 		private async void ApplicationStartup(object sender, StartupEventArgs e)
 		{
 			_system = ActorSystem.Create("ComicsClient");
-			/*
-			var issues = system.ActorOf<IssuesActor>("issues");
-
-			issues.Tell(new IssuesMessages.Create("title 1"));
-			issues.Tell(new IssuesMessages.Create("title 2"));
-			issues.Tell(new IssuesMessages.Create("title 3"));
-			*/
 
 			var issuesViewModel = new IssuesListViewModel();
 			var issuesBridgeActor = _system.ActorOf(IssuesListBridgeActor.Create(issuesViewModel).WithDispatcher("akka.actor.synchronized-dispatcher"));

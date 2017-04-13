@@ -34,6 +34,11 @@ namespace AkkaTest.Issues
 			}
 		}
 
+		public class Unsubscribe
+		{
+
+		}
+
 		public class Created
 		{
 			public readonly IActorRef IssueActor;

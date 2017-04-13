@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 
 namespace AkkaTest.Issues
 {
-	
-
 	public class IssuesActor : ReceiveActor
 	{
 		private readonly IList<IActorRef> _createSubscribers = new List<IActorRef>();

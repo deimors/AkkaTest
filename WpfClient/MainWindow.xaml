@@ -24,7 +24,7 @@
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<DockPanel LastChildFill="True">
-							<Button DockPanel.Dock="Right" Style="{StaticResource DeleteButton}" />
+							<Button DockPanel.Dock="Right" Style="{StaticResource DeleteButton}" Click="{qc:QuickEvent '$dataContext.InvokeDeleteClicked()'}" />
 							<TextBlock Text="{Binding Title}" />
 						</DockPanel>
 					</DataTemplate>

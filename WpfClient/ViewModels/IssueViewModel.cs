@@ -25,5 +25,11 @@ namespace WpfApplication.ViewModels
 				NotifyOfPropertyChanged(nameof(Title));
 			}
 		}
+
+		public event Action Deleted;
+		public event Action DeleteClicked;
+
+		public void Delete() => Deleted?.Invoke();
+		public void InvokeDeleteClicked() => DeleteClicked?.Invoke();
 	}
 }

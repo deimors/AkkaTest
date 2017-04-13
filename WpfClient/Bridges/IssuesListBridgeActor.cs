@@ -77,7 +77,7 @@ namespace WpfApplication.Bridges
 
 		private void OnCreateIssue(IssuesListBridgeMessages.Create msg)
 		{
-			_issuesActor.Tell(new IssuesMessages.Create(msg.NewTitle), Self);
+			_issuesActor.Tell(new IssuesMessages.Create(Guid.NewGuid(), msg.NewTitle), Self);
 		}
 
 		private void OnIssueCreated(IssuesMessages.Created msg)

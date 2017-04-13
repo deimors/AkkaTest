@@ -9,6 +9,11 @@ using WpfApplication.ViewModels;
 
 namespace WpfApplication.Bridges
 {
+	public class IssueBrideMessages
+	{
+		public class DeleteClicked { }
+	}
+
 	public class IssueBridgeActor : ReceiveActor
 	{
 		private readonly IIssue _issue;
@@ -21,16 +26,33 @@ namespace WpfApplication.Bridges
 
 			Receive<IssueMessages.TitleChanged>(msg => OnTitleSet(msg));
 			_issueActor.Tell(new IssueMessages.SubscribeTitle(true), Self);
-		}
 
+			var self = Self;
+			_issue.DeleteClicked += () => self.Tell(new IssueBrideMessages.DeleteClicked());
+			Receive<IssueBrideMessages.DeleteClicked>(msg => OnDeleteClicked());
+
+			_issueActor.Tell(new IssueMessages.SubscribeDeleted(), Self);
+			Receive<IssueMessages.Deleted>(msg => OnDeleted(msg));
+		}
+		
 		public static Props CreateActor(IIssue issue, IActorRef issueActor)
 		{
 			return Props.Create(() => new IssueBridgeActor(issue, issueActor));
 		}
 
-		private void OnTitleSet(IssueMessages.TitleChanged e)
+		private void OnTitleSet(IssueMessages.TitleChanged msg)
 		{
-			_issue.Title = e.Title;
+			_issue.Title = msg.Title;
+		}
+
+		private void OnDeleteClicked()
+		{
+			_issueActor.Tell(new IssueMessages.Delete(), Self);
+		}
+
+		private void OnDeleted(IssueMessages.Deleted msg)
+		{
+			_issue.Delete();
 		}
 	}
 }

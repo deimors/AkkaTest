@@ -36,7 +36,16 @@ namespace WpfApplication.ViewModels
 		public event Action<string> CreateIssueEvent;
 
 		public void AddIssue(IIssue issue)
-			=> Issues.Add(issue);
+		{
+			Issues.Add(issue);
+			issue.Deleted += () => OnIssueDeleted(issue);
+		}
+
+		private void OnIssueDeleted(IIssue issue)
+		{
+			Issues.Remove(issue);
+			issue.Deleted -= () => OnIssueDeleted(issue);
+		}
 
 		public void CreateIssue()
 			=> CreateIssueEvent?.Invoke(NewIssueTitle);

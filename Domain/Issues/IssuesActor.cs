@@ -31,8 +31,7 @@ namespace AkkaTest.Issues
 				return;
 			}
 
-			var newIssueId = Guid.NewGuid();
-			var actorRef = Context.ActorOf(IssueActor.WithIssueId(newIssueId), newIssueId.ToString());
+			var actorRef = Context.ActorOf(IssueActor.WithIssueId(msg.IssueId), $"issue-{msg.IssueId}");
 
 			actorRef.Tell(new IssueMessages.SetTitle(msg.Title), Self);
 

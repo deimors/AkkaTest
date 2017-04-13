@@ -11,10 +11,12 @@ namespace AkkaTest.Issues
 	{
 		public class Create
 		{
+			public readonly Guid IssueId;
 			public readonly string Title;
 
-			public Create(string title)
+			public Create(Guid issueId, string title)
 			{
+				IssueId = issueId;
 				Title = title;
 			}
 		}

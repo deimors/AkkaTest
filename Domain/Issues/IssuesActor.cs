@@ -8,17 +8,21 @@ using System.Threading.Tasks;
 
 namespace AkkaTest.Issues
 {
-	public class IssuesActor : ReceiveActor
+	public class IssuesActor : ReceivePersistentActor
 	{
 		private readonly IList<IActorRef> _createSubscribers = new List<IActorRef>();
 
+		public override string PersistenceId => "issues";
+
 		public IssuesActor()
 		{
-			Receive<IssuesMessages.Create>(msg => CreateIssue(msg));
-			Receive<IssuesMessages.GetAll>(msg => GetIssues());
-			Receive<IssuesMessages.Subscribe>(msg => SubscribeToIssues(msg));
-		}
+			Recover<IssuesMessages.Create>(msg => CreateIssue(msg));
+			Command<IssuesMessages.Create>(msg => Persist(msg, m => CreateIssue(m)));
 
+			Command<IssuesMessages.GetAll>(msg => GetIssues());
+			Command<IssuesMessages.Subscribe>(msg => SubscribeToIssues(msg));
+		}
+		
 		private void CreateIssue(IssuesMessages.Create msg)
 		{
 			if (string.IsNullOrEmpty(msg.Title))

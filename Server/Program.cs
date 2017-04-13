@@ -1,10 +1,7 @@
 ﻿using Akka.Actor;
+using Akka.Persistence.Sqlite;
 using AkkaTest.Issues;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApplication1
 {
@@ -14,14 +11,12 @@ namespace ConsoleApplication1
 		{
 			var system = ActorSystem.Create("ComicsServer");
 
+			SqlitePersistence.Get(system);
+
 			var issues = system.ActorOf<IssuesActor>("issues");
 
 			Console.WriteLine($"Created {issues.Path}");
-
-			issues.Tell(new IssuesMessages.Create("title 1"));
-			issues.Tell(new IssuesMessages.Create("title 2"));
-			issues.Tell(new IssuesMessages.Create("title 3"));
-
+			
 			Console.ReadLine();
 		}
 	}
